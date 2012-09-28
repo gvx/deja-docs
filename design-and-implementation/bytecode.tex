@@ -1,0 +1,12 @@
+\chapter{The Bytecode Format}
+
+The compiler generates bytecode, in a format which is described in this
+chapter.
+
+This bytecode is also used by the persistence mechanism.
+
+Important to note is that all numbers are stored as big-endian encoded byte sequences. Word sizes used in Déjà Vu bytecode files are 8, 24, 32, and 64 bits.
+
+\input{bytecode/header}
+\input{bytecode/instructions}
+\input{bytecode/literals}

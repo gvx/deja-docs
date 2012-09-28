@@ -1,0 +1,14 @@
+\section{The Header}
+
+The header consists of 8 bytes, namely:
+
+\begin{itemize}
+\item 3 bytes for the magic cookie, in hexadecimal: 0x07 0x44 0x56. This is
+      equivalent to the string \texttt{"\textbackslash{}aDV"} (with C-style
+      escape codes).
+\item 1 byte for the bytecode version. The first nybble is the major revision,
+      the second nybble is the minor revision. Since the current bytecode
+      version is 0.3, this byte should generally be 0x03.
+\item 4 bytes for the length of the code, in instructions (each instruction is
+      four bytes).
+\end{itemize}
