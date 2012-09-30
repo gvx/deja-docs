@@ -65,7 +65,38 @@ your mind.</p>
 
 print sum [ 10 5 20 ]
 </code></pre>
-<p>You can probably guess what this program will print [...]</p>
+<p>You can probably guess what this program will print.  (It's 35.)</p>
+<p>Still, there are a lot of things that seem odd if you're familiar with other
+programming languages. The location of the <code>+</code>, for example. It's
+important to note here that <code>+</code> is a function, and in Déjà Vu, the
+arguments to a function are to its right. Déjà Vu is top-to-bottom like most
+programming languages, but unlike them, it's right-to-left. The reason for that
+is that in languages like Python, nested function calls are also from right to
+left: <code>f(g(x))</code> is "call <code>g</code> with <code>x</code>, and
+<em>then</em> call <code>f</code> with the result of that function call". If
+you want to do that in stack-based languages like Forth, you would say
+<code>x g f</code>. That seemed unintuitive to me, so I turned it back around
+for Déjà Vu, where it is: <code>f g x</code>.</p>
+<p>Now, which of the words you saw in the above code snippet calculating the
+sum of 10, 5 and 20 are function calls? Let's repeat the snippet, but make the
+functon calls bold and draw attention-grabbing rectangles around them:</p>
+<pre><code>func sum list:
+	<b>local</b> :total 0
+	for item <b>in</b> list:
+		<b>set</b> :total <b>+</b> total item
+	<b>return</b> total
+
+<b>print</b> <b>sum</b> <b>[</b> 10 5 20 ]
+</code></pre>
+<p>That's a lot of function calls. Eight in total. Now, to be fair, the
+compiler usually translates calls to functions like <code>return</code>,
+<code>local</code>, <code>set</code> and the like to special opcodes, but it
+doesn't have to (and you can still take the value of functions like that, and
+pass them around).</p>
+<p>Let's talk about <code>[</code>. That's a very important function. It's
+similar to <code>[]</code>, which creates a new empty list. The difference is
+that <code>[</code> takes values off the stack and adds them to the new list
+until it finds a <code>]</code>.</code>
       </section>
       <footer>
         <p>This tutorial is maintained by <a href="https://github.com/gvx">gvx</a></p>

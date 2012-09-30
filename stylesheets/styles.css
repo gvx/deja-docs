@@ -253,3 +253,10 @@ footer {
     color:#444;
   }
 }
+
+code b { /*notice me!*/
+	font-weight: bold;
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px
+}
