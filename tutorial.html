@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Déjà Vu tutorial</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Déjà Vu tutorial</h1>
+      </header>
+      <section>
+<h3>First things first</h3>
+<p>This tutorial assumes you have prior programming experience. You'll need to
+know about procedural programming, and some knowledge about functional
+programming and stack-based programming will help. You probably will need to
+run Linux, since that's what the Déjà Vu virtual machine was developed on, and
+the creator of the language regretfully informs you that he hasn't got around
+to adding support for alternative operating systems. Oh, and it probably will
+crash hard if you try to run it on a 32-bit system. Good luck.
+</p>
+<h3>Installing Déjà Vu</h3>
+<p>You can download the compiler and virtual machine straight from
+<a href="https://github.com/gvx/deja">the repository</a>.</p>
+<p>The compiler (along with assorted tools) is written in Python 2.6. If you
+run Linux, you probably have that installed already (or a near enough version
+of Python). If you have Python 3, it's probably possible to get that to work.
+The compiler doesn't depend on anything but Python's standard library, so that
+helps. (If you manage to do that, please send me a patch or a pull request or
+what not.)
+<p>You'll need to build the virtual machine with gcc. A Makefile is supplied in
+the <code>vm/</code> directory that should be sufficient. Run <code>make
+release</code> (a bare <code>make</code> will build both the release VM
+(<code>vu</code>) and the VM used for debugging the language and virtual
+machine itself (<code>vu-dbg</code>)).</p>
+<p>You can test if everything works by running:</p>
+<pre><code>touch null.deja
+python dvc.py null.deja > null.vu
+vm/vu null</code></pre>
+<p>If nothing seems to happen, you're golden.</p>
+<p>You'll notice an empty <code>null.deja</code> and a <code>null.vu</code> of
+about 23 bytes are now in your working directory. We'll talk about
+<code>.vu</code> files later. For now, remember this work flow (compiling with
+<code>dvc.py</code> when you've made changes, running with <code>vu</code>).
+(Side note: I probably should rewrite the compiler in C and integrate it with
+the virtual machine, so that the compiling step is invisible, like in Python. I
+promise I'll rewrite this section when I do that.)</p>
+<h3>Our first program</h3>
+<p>Déjà Vu will blow your mind. At least, I hope so. In this section, we will
+go over a few example programs, with which I will try to slowly and gently blow
+your mind.</p>
+<pre><code>func sum list:
+	local :total 0
+	for item in list:
+		set :total + total item
+	return total
+
+print sum [ 10 5 20 ]
+</code></pre>
+<p>You can probably guess what this program will print [...]</p>
+      </section>
+      <footer>
+        <p>This tutorial is maintained by <a href="https://github.com/gvx">gvx</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
