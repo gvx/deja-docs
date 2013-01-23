@@ -6,3 +6,23 @@ to change calls to certain standard library functions into opcodes, if
 applicable. Another way the compiler may differ is that it can provide built-in
 macro definitions. In future versions of the language there may be stricter
 rules about what the compiler can and cannot do. 
+
+\section{Compiler macros}
+
+The current default implementation of the compiler provides a range of
+macros, which are explained below.
+
+\subsection{for}
+The macro called \verb!for! exhausts the iterator given to it as its
+argument, leaving the iterated values on the stack. For example, one
+could make a copy of a list by doing \verb![ for in list ]!.
+\subsection{(:split:)}
+This macro pushes an anonymous function to the stack which, when called
+continues the current version where it left off, and returns from the
+current function. It is similar to \verb!yield! as seen in Python.
+\subsection{Inline anonymous functions}
+Creates an inline anonymous function. $\lambda$\verb! block ;! is
+equivalent to a \verb!labda! statement containing \verb!block!.
+\subsection{Method calls}
+Any proper word of the form \verb#prefix!suffix# is treated as if it
+said \verb#call get-from prefix :suffix# instead.
