@@ -96,7 +96,25 @@ pass them around).</p>
 <p>Let's talk about <code>[</code>. That's a very important function. It's
 similar to <code>[]</code>, which creates a new empty list. The difference is
 that <code>[</code> takes values off the stack and adds them to the new list
-until it finds a <code>]</code>.</code>
+until it finds a <code>]</code>.</p>
+Let's see what the literal values are that are used in that code snippet:
+<pre><code>func sum list:
+	local <b>:total</b> <b>0</b>
+	for item in list:
+		set <b>:total</b> + total item
+	return total
+
+print sum [ <b>10</b> <b>5</b> <b>20</b> ]
+</code></pre>
+<p>You probably guessed that the numbers were literal values, but why are
+those words starting with colons literal values? Those are called <em>idents</em>.
+They are symbols or names, often of variables, but not always. When calling
+<code>set</code> or one of its friend like <code>local</code>,
+<code>setglobal</code>, <code>get</code> or <code>getglobal</code>, it expects
+such an ident as its first argument to tell the function what variable you mean.
+Identrs are first class values: you can pass them around and give them names,
+just like you can with numbers, strings, functions&hellip;</p>
+<p>There is a lot more to say about idents, but that will have to wait for now.</p>
       </section>
       <footer>
         <p>This tutorial is maintained by <a href="https://github.com/gvx">gvx</a></p>
