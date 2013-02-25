@@ -10,10 +10,49 @@ it is signed, it is represented in two's complement.
 \hline
 \bfseries{Argument type} & \bfseries{Signed?} & \bfseries{Explanation} \\ \hline
 Index & No & A numerical reference to one of the literals (see section \ref{literals}), starting at 0. \\ \hline
-Offset & Yes & An offset to another code location in the current module. A 0 refers to the next instruction. \\ \hline
+Offset & Yes & An offset to another code location in the current module. In this case, 0 refers to the next instruction. \\ \hline
 Number & Yes & An integer value, available to Déjà Vu as a number. \\ \hline
-Nothing & N/A & Some opcodes do not take arguments. These three bytes will be ignored. \\ \hline
+None & N/A & Some opcodes do not take arguments. These three bytes will be ignored. \\ \hline
 \end{tabular}
 
-\emph{table of opcodes here}
+\begin{tabular}{|l|l|l|}
+\hline
+\bfseries{Opcode} & \bfseries{Function} & \bfseries{Argument type} \\ \hline
+0x00 & Push literal & Index \\ \hline
+0x01 & Push integer & Number \\ \hline
+0x02 & Push word & Index \\ \hline
+0x03 & Set & Index \\ \hline
+0x04 & Set local & Index \\ \hline
+0x05 & Set global & Index \\ \hline
+0x06 & Get & Index \\ \hline
+0x07 & Get global & Index \\ \hline
+0x10 & Jump & Offset \\ \hline
+0x11 & Jump if zero & Offset \\ \hline
+0x12 & Return & None \\ \hline
+0x13 & Recurse & None \\ \hline
+0x14 & Jump if equal & Offset \\ \hline
+0x15 & Jump if not equal & Offset \\ \hline
+0x20 & Create labda & Offset \\ \hline
+0x21 & Enter scope & None \\ \hline
+0x22 & Leave scope & None \\ \hline
+0x30 & New list & None \\ \hline
+0x31 & Pop from & None \\ \hline
+0x32 & Push to & None \\ \hline
+0x33 & Push through & None \\ \hline
+0x40 & Drop & None \\ \hline
+0x41 & Dup & None \\ \hline
+0x42 & Swap & None \\ \hline
+0x43 & Rot & None \\ \hline
+0x44 & Over & None \\ \hline
+0x50 & Line number & Number \\ \hline
+0x52 & Source file & Index \\ \hline
+0x60 & Enter error handler & Offset \\ \hline
+0x61 & Leave error handler & None \\ \hline
+0x62 & Raise & None \\ \hline
+0x63 & Reraise & None \\ \hline
+0x70 & New dict & None \\ \hline
+0x71 & Has dict & None \\ \hline
+0x72 & Get dict & None \\ \hline
+0x73 & Set dict & None \\ \hline
+\end{tabular}
 
