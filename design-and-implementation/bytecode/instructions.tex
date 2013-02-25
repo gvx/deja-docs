@@ -6,8 +6,8 @@ for the argument.
 How the argument is interpreted depends on the opcode it belongs to. If
 it is signed, it is represented in two's complement.
 
-\begin{tabular}{llp{6.5cm}}
-\bfseries{Argument type} & \bfseries{Signed?} & \bfseries{Explanation} \\ \hline
+\begin{tabular}{llp{7.6cm}}
+\bfseries{Type} & \bfseries{Signed?} & \bfseries{Explanation} \\ \hline
 Index & No & A numerical reference to one of the literals (see section \ref{literals}), starting at 0. \\
 Offset & Yes & An offset to another code location in the current module. In this case, 0 refers to the next instruction. \\
 Number & Yes & An integer value, available to Déjà Vu as a number. \\
@@ -22,14 +22,14 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x03 & SET & Index & \pageref{sec:set} \\
 0x04 & SET\textunderscore{}LOCAL & Index & \pageref{sec:set-local} \\
 0x05 & SET\textunderscore{}GLOBAL & Index & \pageref{sec:set-global} \\
-0x06 & GET & Index \\
-0x07 & GET\textunderscore{}GLOBAL & Index \\
-0x10 & JMP & Offset \\
-0x11 & JMPZ & Offset \\
-0x12 & RETURN & None \\
-0x13 & RECURSE & None \\
-0x14 & JMPEQ & Offset \\
-0x15 & JMPNE & Offset \\
+0x06 & GET & Index & \pageref{sec:get} \\
+0x07 & GET\textunderscore{}GLOBAL & Index & \pageref{sec:get-global} \\
+0x10 & JMP & Offset & \pageref{sec:jmp} \\
+0x11 & JMPZ & Offset & \pageref{sec:jmpz} \\
+0x12 & RETURN & None & \pageref{sec:return} \\
+0x13 & RECURSE & None & \pageref{sec:recurse} \\
+0x14 & JMPEQ & Offset & \pageref{sec:jmpeq} \\
+0x15 & JMPNE & Offset & \pageref{sec:jmpne} \\
 0x20 & LABDA & Offset \\
 0x21 & ENTER\textunderscore{}SCOPE & None \\
 0x22 & LEAVE\textunderscore{}SCOPE & None \\
@@ -79,7 +79,7 @@ This opcode retrieves an ident from the literals table and pops a
 value from the stack. It then goes upward from the current scope,
 stopping if it finds a definition of the ident in question. It then
 assigns the value to the ident in that scope. If the global scope is
-reached without finding a definition for the scope, an assignment in the
+reached without finding a definition for the ident, an assignment in the
 global scope is made.
 
 \subsection{SET\textunderscore{}LOCAL}
@@ -93,4 +93,59 @@ current scope.
 This opcode retrieves an ident from the literals table and pops a
 value from the stack. It then assigns the value to the ident in the
 global scope.
+
+\subsection{GET}
+\label{sec:get}
+This opcode retrieves an ident from the literals table. It then goes
+upward from the current scope, stopping if it finds a definition of the
+ident in question. It then pushes the value from the ident in that scope
+to the stack. If the global scope is reached without finding a
+definition for the ident, a \verb!name-error! exception is thrown.
+
+\subsection{GET\textunderscore{}GLOBAL}
+\label{sec:get-global}
+This opcode retrieves an ident from the literals table. It then looks up
+the definition of that ident in the global scope and pushes the value to
+the stack. If the global scope has no definition for the ident, a
+\verb!name-error! exception is thrown.
+
+\subsection{JMP}
+\label{sec:jmp}
+An unconditional jump. The argument is the relative position where the
+control will jump to before executing the next instruction.
+
+\subsection{JMPZ}
+\label{sec:jmpz}
+An conditional jump. A value is popped from the stack. If the value is
+a false one (see the language reference for an overview of truth values
+for the various types), the jump is made. The argument is the relative
+position where the control will jump to before executing the next
+instruction.
+
+\subsection{RETURN}
+\label{sec:return}
+Returns from the current function. Closes all scopes belonging to the
+current function call, including error handlers.
+
+\subsection{RECURSE}
+\label{sec:recurse}
+Similar to RETURN, except that it also ``restarts'' the function
+(keeping the original function scope), implementing a form of tail call
+optimization.
+
+\subsection{JMPEQ}
+\label{sec:jmpeq}
+An conditional jump. Two values are popped from the stack. If the values
+are equal (see the language reference for an overview of equality for
+the various types), the jump is made. The argument is the relative
+position where the control will jump to before executing the next
+instruction.
+
+\subsection{JMPNE}
+\label{sec:jmpne}
+An conditional jump. Two values are popped from the stack. If the values
+are \emph{not} equal (see the language reference for an overview of
+equality for the various types), the jump is made. The argument is the
+relative position where the control will jump to before executing the
+next instruction.
 
