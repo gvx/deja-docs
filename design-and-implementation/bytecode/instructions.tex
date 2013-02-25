@@ -53,3 +53,19 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x72 & GET\textunderscore{}DICT & None \\
 0x73 & SET\textunderscore{}DICT & None \\
 \end{tabular}
+
+\subsection{PUSH\textunderscore{}LITERAL}
+This opcode pushes a literal value to the stack.
+
+\subsection{PUSH\textunderscore{}INTEGER}
+This opcode pushes a literal integer to the stack. It performs the same
+basic function as PUSH\textunderscore{}LITERAL, except that is narrower
+in scope (it only handles integers representable in 24 bits) and avoids
+an entry in the literals table, which would be relatively expensive. A
+conforming compiler can choose not to generate PUSH\textunderscore{}INTEGER
+and instead add all literal integers to the literals table and generate
+PUSH\textunderscore{}LITERAL instructions instead.
+
+\subsection{PUSH\textunderscore{}WORD}
+This opcode first performs the same functionality as GET and then, if
+the value retrieved is a function, that function is called.
