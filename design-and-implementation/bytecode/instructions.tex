@@ -15,13 +15,13 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 \end{tabular}
 
 \begin{tabular}{llll}
-\bfseries{Opcode} & \bfseries{Function} & \bfseries{Argument type} \\ \hline
-0x00 & PUSH\textunderscore{}LITERAL & Index \\
-0x01 & PUSH\textunderscore{}INTEGER & Number \\
-0x02 & PUSH\textunderscore{}WORD & Index \\
-0x03 & SET & Index \\
-0x04 & SET\textunderscore{}LOCAL & Index \\
-0x05 & SET\textunderscore{}GLOBAL & Index \\
+\bfseries{Opcode} & \bfseries{Function} & \bfseries{Argument type} & \bfseries{See page} \\ \hline
+0x00 & PUSH\textunderscore{}LITERAL & Index & \pageref{sec:push-literal} \\
+0x01 & PUSH\textunderscore{}INTEGER & Number & \pageref{sec:push-integer} \\
+0x02 & PUSH\textunderscore{}WORD & Index & \pageref{sec:push-word} \\
+0x03 & SET & Index & \pageref{sec:set} \\
+0x04 & SET\textunderscore{}LOCAL & Index & \pageref{sec:set-local} \\
+0x05 & SET\textunderscore{}GLOBAL & Index & \pageref{sec:set-global} \\
 0x06 & GET & Index \\
 0x07 & GET\textunderscore{}GLOBAL & Index \\
 0x10 & JMP & Offset \\
@@ -55,9 +55,11 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 \end{tabular}
 
 \subsection{PUSH\textunderscore{}LITERAL}
+\label{sec:push-literal}
 This opcode pushes a literal value to the stack.
 
 \subsection{PUSH\textunderscore{}INTEGER}
+\label{sec:push-integer}
 This opcode pushes a literal integer to the stack. It performs the same
 basic function as PUSH\textunderscore{}LITERAL, except that is narrower
 in scope (it only handles integers representable in 24 bits) and avoids
@@ -67,5 +69,28 @@ and instead add all literal integers to the literals table and generate
 PUSH\textunderscore{}LITERAL instructions instead.
 
 \subsection{PUSH\textunderscore{}WORD}
+\label{sec:push-word}
 This opcode first performs the same functionality as GET and then, if
 the value retrieved is a function, that function is called.
+
+\subsection{SET}
+\label{sec:set}
+This opcode retrieves an ident from the literals table and pops a
+value from the stack. It then goes upward from the current scope,
+stopping if it finds a definition of the ident in question. It then
+assigns the value to the ident in that scope. If the global scope is
+reached without finding a definition for the scope, an assignment in the
+global scope is made.
+
+\subsection{SET\textunderscore{}LOCAL}
+\label{sec:set-local}
+This opcode retrieves an ident from the literals table and pops a
+value from the stack. It then assigns the value to the ident in the
+current scope.
+
+\subsection{SET\textunderscore{}GLOBAL}
+\label{sec:set-global}
+This opcode retrieves an ident from the literals table and pops a
+value from the stack. It then assigns the value to the ident in the
+global scope.
+
