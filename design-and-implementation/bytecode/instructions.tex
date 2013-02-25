@@ -14,43 +14,42 @@ Number & Yes & An integer value, available to Déjà Vu as a number. \\
 None & N/A & Some opcodes do not take arguments. These three bytes will be ignored. \\
 \end{tabular}
 
-\begin{tabular}{lll}
+\begin{tabular}{llll}
 \bfseries{Opcode} & \bfseries{Function} & \bfseries{Argument type} \\ \hline
-0x00 & Push literal & Index \\
-0x01 & Push integer & Number \\
-0x02 & Push word & Index \\
-0x03 & Set & Index \\
-0x04 & Set local & Index \\
-0x05 & Set global & Index \\
-0x06 & Get & Index \\
-0x07 & Get global & Index \\
-0x10 & Jump & Offset \\
-0x11 & Jump if zero & Offset \\
-0x12 & Return & None \\
-0x13 & Recurse & None \\
-0x14 & Jump if equal & Offset \\
-0x15 & Jump if not equal & Offset \\
-0x20 & Create labda & Offset \\
-0x21 & Enter scope & None \\
-0x22 & Leave scope & None \\
-0x30 & New list & None \\
-0x31 & Pop from & None \\
-0x32 & Push to & None \\
-0x33 & Push through & None \\
-0x40 & Drop & None \\
-0x41 & Dup & None \\
-0x42 & Swap & None \\
-0x43 & Rot & None \\
-0x44 & Over & None \\
-0x50 & Line number & Number \\
-0x52 & Source file & Index \\
-0x60 & Enter error handler & Offset \\
-0x61 & Leave error handler & None \\
-0x62 & Raise & None \\
-0x63 & Reraise & None \\
-0x70 & New dict & None \\
-0x71 & Has dict & None \\
-0x72 & Get dict & None \\
-0x73 & Set dict & None \\
+0x00 & PUSH\textunderscore{}LITERAL & Index \\
+0x01 & PUSH\textunderscore{}INTEGER & Number \\
+0x02 & PUSH\textunderscore{}WORD & Index \\
+0x03 & SET & Index \\
+0x04 & SET\textunderscore{}LOCAL & Index \\
+0x05 & SET\textunderscore{}GLOBAL & Index \\
+0x06 & GET & Index \\
+0x07 & GET\textunderscore{}GLOBAL & Index \\
+0x10 & JMP & Offset \\
+0x11 & JMPZ & Offset \\
+0x12 & RETURN & None \\
+0x13 & RECURSE & None \\
+0x14 & JMPEQ & Offset \\
+0x15 & JMPNE & Offset \\
+0x20 & LABDA & Offset \\
+0x21 & ENTER\textunderscore{}SCOPE & None \\
+0x22 & LEAVE\textunderscore{}SCOPE & None \\
+0x30 & NEW\textunderscore{}LIST & None \\
+0x31 & POP\textunderscore{}FROM & None \\
+0x32 & PUSH\textunderscore{}TO & None \\
+0x33 & PUSH\textunderscore{}THROUGH & None \\
+0x40 & DROP & None \\
+0x41 & DUP & None \\
+0x42 & SWAP & None \\
+0x43 & ROT & None \\
+0x44 & OVER & None \\
+0x50 & LINE\textunderscore{}NUMBER & Number \\
+0x52 & SOURCE\textunderscore{}FILE & Index \\
+0x60 & ENTER\textunderscore{}ERRHAND & Offset \\
+0x61 & LEAVE\textunderscore{}ERRHAND & None \\
+0x62 & RAISE & None \\
+0x63 & RERAISE & None \\
+0x70 & NEW\textunderscore{}DICT & None \\
+0x71 & HAS\textunderscore{}DICT & None \\
+0x72 & GET\textunderscore{}DICT & None \\
+0x73 & SET\textunderscore{}DICT & None \\
 \end{tabular}
-
