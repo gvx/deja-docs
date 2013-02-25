@@ -3,6 +3,17 @@
 Each instruction exists of four bytes: one byte for the opcode and three bytes
 for the argument.
 
+How the argument is interpreted depends on the opcode it belongs to. If
+it is signed, it is represented in two's complement.
+
+\begin{tabular}{|l|l|p{6.5cm}|}
+\hline
+\bfseries{Argument type} & \bfseries{Signed?} & \bfseries{Explanation} \\ \hline
+Index & No & A numerical reference to one of the literals (see section \ref{literals}), starting at 0. \\ \hline
+Offset & Yes & An offset to another code location in the current module. A 0 refers to the next instruction. \\ \hline
+Number & Yes & An integer value, available to Déjà Vu as a number. \\ \hline
+Nothing & N/A & Some opcodes do not take arguments. These three bytes will be ignored. \\ \hline
+\end{tabular}
+
 \emph{table of opcodes here}
 
-\emph{table of argument types here}
