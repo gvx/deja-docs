@@ -30,7 +30,7 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x13 & RECURSE & None & \pageref{sec:recurse} \\
 0x14 & JMPEQ & Offset & \pageref{sec:jmpeq} \\
 0x15 & JMPNE & Offset & \pageref{sec:jmpne} \\
-0x20 & LABDA & Offset \\
+0x20 & LABDA & Offset & \pageref{sec:labda} \\
 0x21 & ENTER\textunderscore{}SCOPE & None \\
 0x22 & LEAVE\textunderscore{}SCOPE & None \\
 0x30 & NEW\textunderscore{}LIST & None \\
@@ -149,3 +149,10 @@ equality for the various types), the jump is made. The argument is the
 relative position where the control will jump to before executing the
 next instruction.
 
+\subsection{LABDA}
+\label{sec:labda}
+Creates an anonymous function and pushes it to the stack. The current
+scope will be the parent scope of that function. The function will begin
+execution in the next instruction when called. After pushing the
+function to the stack, the control flow works as it would have done had
+the instruction been JMP.
