@@ -31,9 +31,9 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x14 & JMPEQ & Offset & \pageref{sec:jmpeq} \\
 0x15 & JMPNE & Offset & \pageref{sec:jmpne} \\
 0x20 & LABDA & Offset & \pageref{sec:labda} \\
-0x21 & ENTER\textunderscore{}SCOPE & None \\
-0x22 & LEAVE\textunderscore{}SCOPE & None \\
-0x30 & NEW\textunderscore{}LIST & None \\
+0x21 & ENTER\textunderscore{}SCOPE & None & \pageref{sec:enterscope} \\
+0x22 & LEAVE\textunderscore{}SCOPE & None & \pageref{sec:leavescope} \\
+0x30 & NEW\textunderscore{}LIST & None & \pageref{sec:newlist} \\
 0x31 & POP\textunderscore{}FROM & None \\
 0x32 & PUSH\textunderscore{}TO & None \\
 0x33 & PUSH\textunderscore{}THROUGH & None \\
@@ -52,6 +52,7 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x71 & HAS\textunderscore{}DICT & None \\
 0x72 & GET\textunderscore{}DICT & None \\
 0x73 & SET\textunderscore{}DICT & None \\
+0x80 & CALL & None \\
 \end{tabular}
 
 \subsection{PUSH\textunderscore{}LITERAL}
@@ -156,3 +157,16 @@ scope will be the parent scope of that function. The function will begin
 execution in the next instruction when called. After pushing the
 function to the stack, the control flow works as it would have done had
 the instruction been JMP.
+
+\subsection{ENTER\textunderscore{}SCOPE}
+\label{sec:enterscope}
+Creates a new scope, with the current scope as parent. It then pushes
+that scope on the scope stack.
+
+\subsection{LEAVE\textunderscore{}SCOPE}
+\label{sec:leavescope}
+Pops the top scope from the scope stack.
+
+\subsection{NEW\textunderscore{}LIST}
+\label{sec:newlist}
+Creates a new list and pushes it to the stack.
