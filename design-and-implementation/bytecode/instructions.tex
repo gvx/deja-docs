@@ -34,9 +34,9 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x21 & ENTER\textunderscore{}SCOPE & None & \pageref{sec:enterscope} \\
 0x22 & LEAVE\textunderscore{}SCOPE & None & \pageref{sec:leavescope} \\
 0x30 & NEW\textunderscore{}LIST & None & \pageref{sec:newlist} \\
-0x31 & POP\textunderscore{}FROM & None \\
-0x32 & PUSH\textunderscore{}TO & None \\
-0x33 & PUSH\textunderscore{}THROUGH & None \\
+0x31 & POP\textunderscore{}FROM & None & \pageref{sec:popfrom} \\
+0x32 & PUSH\textunderscore{}TO & None & \pageref{sec:pushto} \\
+0x33 & PUSH\textunderscore{}THROUGH & None & \pageref{sec:pushthrough} \\
 0x40 & DROP & None \\
 0x41 & DUP & None \\
 0x42 & SWAP & None \\
@@ -170,3 +170,22 @@ Pops the top scope from the scope stack.
 \subsection{NEW\textunderscore{}LIST}
 \label{sec:newlist}
 Creates a new list and pushes it to the stack.
+
+\subsection{POP\textunderscore{}FROM}
+\label{sec:popfrom}
+Pops a list from the stack, and removes the last value from it. Finally
+pushes that value to the stack. If the top of the stack is not a list,
+it raises a \verb!type-error!. If the list is empty, a
+\verb!value-error! is raised.
+
+\subsection{PUSH\textunderscore{}TO}
+\label{sec:pushto}
+Pops a list from the stack. If it not a list, a \verb!type-error! is
+raise. Otherswise, it pops another value from the stack. That value
+is then appended to the list. Nothing is pushed to the stack.
+
+\subsection{PUSH\textunderscore{}THROUGH}
+\label{sec:pushthrough}
+Pops a list from the stack. If it not a list, a \verb!type-error! is
+raise. Otherswise, it pops another value from the stack. That value
+is then appended to the list. The list is pushed back to the stack.
