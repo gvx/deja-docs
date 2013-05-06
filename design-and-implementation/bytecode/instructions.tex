@@ -37,11 +37,11 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x31 & POP\textunderscore{}FROM & None & \pageref{sec:popfrom} \\
 0x32 & PUSH\textunderscore{}TO & None & \pageref{sec:pushto} \\
 0x33 & PUSH\textunderscore{}THROUGH & None & \pageref{sec:pushthrough} \\
-0x40 & DROP & None \\
-0x41 & DUP & None \\
-0x42 & SWAP & None \\
-0x43 & ROT & None \\
-0x44 & OVER & None \\
+0x40 & DROP & None & \pageref{sec:drop} \\
+0x41 & DUP & None & \pageref{sec:dup} \\
+0x42 & SWAP & None & \pageref{sec:swap} \\
+0x43 & ROT & None & \pageref{sec:rot} \\
+0x44 & OVER & None & \pageref{sec:over} \\
 0x50 & LINE\textunderscore{}NUMBER & Number \\
 0x52 & SOURCE\textunderscore{}FILE & Index \\
 0x60 & ENTER\textunderscore{}ERRHAND & Offset \\
@@ -181,11 +181,34 @@ it raises a \verb!type-error!. If the list is empty, a
 \subsection{PUSH\textunderscore{}TO}
 \label{sec:pushto}
 Pops a list from the stack. If it not a list, a \verb!type-error! is
-raise. Otherswise, it pops another value from the stack. That value
+raised. Otherswise, it pops another value from the stack. That value
 is then appended to the list. Nothing is pushed to the stack.
 
 \subsection{PUSH\textunderscore{}THROUGH}
 \label{sec:pushthrough}
 Pops a list from the stack. If it not a list, a \verb!type-error! is
-raise. Otherswise, it pops another value from the stack. That value
+raised. Otherswise, it pops another value from the stack. That value
 is then appended to the list. The list is pushed back to the stack.
+
+\subsection{DROP}
+\label{sec:drop}
+Drops the top most value from the stack.
+
+\subsection{DUP}
+\label{sec:dup}
+Duplicates the top most value on the stack.
+
+\subsection{SWAP}
+\label{sec:swap}
+Swaps the two top most values on the stack.
+
+\subsection{ROT}
+\label{sec:rot}
+Rotates the three top most values on the stack, such that after the
+operation the previous top most value is the second value, the previous
+second value is the third, and the previous third value is the top most
+
+\subsection{OVER}
+\label{sec:over}
+Duplicates the second value on the stack, and pushes it to the top of
+the stack.
