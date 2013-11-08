@@ -42,17 +42,17 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 0x42 & SWAP & None & \pageref{sec:swap} \\
 0x43 & ROT & None & \pageref{sec:rot} \\
 0x44 & OVER & None & \pageref{sec:over} \\
-0x50 & LINE\textunderscore{}NUMBER & Number \\
-0x52 & SOURCE\textunderscore{}FILE & Index \\
-0x60 & ENTER\textunderscore{}ERRHAND & Offset \\
-0x61 & LEAVE\textunderscore{}ERRHAND & None \\
-0x62 & RAISE & None \\
-0x63 & RERAISE & None \\
-0x70 & NEW\textunderscore{}DICT & None \\
-0x71 & HAS\textunderscore{}DICT & None \\
-0x72 & GET\textunderscore{}DICT & None \\
-0x73 & SET\textunderscore{}DICT & None \\
-0x80 & CALL & None \\
+0x50 & LINE\textunderscore{}NUMBER & Number & \pageref{sec:linenumber} \\
+0x52 & SOURCE\textunderscore{}FILE & Index & \pageref{sec:sourcefile} \\
+0x60 & ENTER\textunderscore{}ERRHAND & Offset & \pageref{sec:entererrhand} \\
+0x61 & LEAVE\textunderscore{}ERRHAND & None & \pageref{sec:leaveerrhand} \\
+0x62 & RAISE & None & \pageref{sec:raise} \\
+0x63 & RERAISE & None & \pageref{sec:reraise} \\
+0x70 & NEW\textunderscore{}DICT & None & \pageref{sec:newdict} \\
+0x71 & HAS\textunderscore{}DICT & None & \pageref{sec:hasdict} \\
+0x72 & GET\textunderscore{}DICT & None & \pageref{sec:getdict} \\
+0x73 & SET\textunderscore{}DICT & None & \pageref{sec:setdict} \\
+0x80 & CALL & None & \pageref{sec:call} \\
 \end{tabular}
 
 \subsection{PUSH\textunderscore{}LITERAL}
@@ -212,3 +212,47 @@ second value is the third, and the previous third value is the top most
 \label{sec:over}
 Duplicates the second value on the stack, and pushes it to the top of
 the stack.
+
+\subsection{LINE\textunderscore{}NUMBER}
+\label{sec:linenumber}
+For tracebacks. Changes the line number associated to the current scope
+to the argument.
+
+\subsection{SOURCE\textunderscore{}FILE}
+\label{sec:sourcefile}
+For tracebacks. The argument should point to a string representing the
+path to the source file for the current byte code file.
+
+\subsection{ENTER\textunderscore{}ERRHAND}
+\label{sec:entererrhand}
+The same as ENTER\textunderscore{}SCOPE, except that the new scope gets
+a flag that means an error occuring while this scope is in session (and
+not shadowed by another error handler) will be handled by continuing
+here instead of stopping execution. After pushing the new scope, it
+behaves like JMP.
+
+\subsection{LEAVE\textunderscore{}ERRHAND}
+\label{sec:leaveerrhand}
+Exactly the same as LEAVE\textunderscore{}SCOPE.
+
+\subsection{RAISE}
+\label{sec:raise}
+
+\subsection{RERAISE}
+\label{sec:reraise}
+
+\subsection{NEW\textunderscore{}DICT}
+\label{sec:newdict}
+
+\subsection{HAS\textunderscore{}DICT}
+\label{sec:hasdict}
+
+\subsection{GET\textunderscore{}DICT}
+\label{sec:getdict}
+
+\subsection{SET\textunderscore{}DICT}
+\label{sec:setdict}
+
+\subsection{CALL}
+\label{sec:call}
+
