@@ -1,3 +1,58 @@
 \chapter{Source language}
 
-...
+\newcommand\grammar[1]{\underline{#1}}
+
+\section{Grammar}
+Déjà Vu follows the off-side rule, like Python. Like Python, it uses colons to signal the start of an indented block. Unlike Python, it doesn't support line continuations.
+
+On the next page is the complete grammar of the Déjà Vu language (because indentation is hard to capture in BNF, just imagine all indentation is replaced with INDENT and DEDENT tokens before parsing --- which the compiler actually does do). If anything is wrong or unclear, please contact me and I will hopefully be able to fix it in the next edition of this document.
+
+The rest of this page will be used to show the various escape characters you can use in string literals:
+
+\begin{tabular}{ l l }
+\textbf{Sequence} & \textbf{Character inserted}\\
+\hline
+\textbackslash{}\textbackslash{} & Backslash\\
+\textbackslash{}q & Double quote\\
+\textbackslash{}n & Newline\\
+\textbackslash{}r & Carriage return\\
+\textbackslash{}t & Tab\\
+\textbackslash{}\{$n$\} & Unicode code point $n$ (decimal notation)\\
+\end{tabular}
+
+\newpage
+\begin{bnf*}
+\bnfprod{program}{\bnfes \bnfor \bnfpn{contents}}\\
+\bnfprod{contents}{\bnfpn{element} \bnfor \bnfpn{element} \bnfsp \bnfpn{contents}}\\
+\bnfprod{element}{\bnfpn{statement} \bnfor \bnfpn{eol}}\\
+\bnfprod{statement}{\bnfpn{simple line} \bnfor \bnfpn{simple statement} \bnfor \bnfpn{if suite} \bnfor \bnfpn{try-catch suite}}\\
+\bnfprod{eol}{\bnftd{whitespace} \bnfsp \bnfpn{optional comment} \bnfsp \bnftd{newline}}\\
+\bnfprod{simple line}{\bnfpn{words} \bnfsp \bnfpn{eol}}\\
+\bnfprod{simple statement}{\bnfpn{while} \bnfor \bnfpn{for} \bnfor \bnfpn{function definition} \bnfor \bnfpn{repeat}}\\
+\bnfprod{if suite}{\bnfts{if} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block} \bnfsp \bnfpn{elseifs} \bnfsp \bnfpn{else}}\\
+\bnfprod{try-catch suite}{\bnfts{try} \bnfsp \bnfpn{block} \bnfsp \bnfpn{catches}}\\
+\bnfprod{optional comment}{\bnfes \bnfor \bnfts{\#} \bnfsp \bnftd{anything except newline}}\\
+\bnfprod{words}{\bnfpn{word} \bnfor \bnfpn{word} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words}}\\
+\bnfprod{while}{\bnfts{while} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{for}{\bnfts{for} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{function definition}{\bnfpn{function name} \bnfsp \bnfpn{optional arguments} \bnfsp \bnfpn{block}}\\
+\bnfprod{repeat}{\bnfts{repeat} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{elseifs}{\bnfes \bnfor \bnfpn{elseif} \bnfsp \bnfpn{elseifs}}\\
+\bnfprod{elseif}{\bnfts{elseif} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{else}{\bnfes \bnfor \bnfts{else} \bnfsp \bnfpn{block}}\\
+\bnfprod{catches}{\bnfes \bnfor \bnfpn{catch} \bnfsp \bnfpn{catches}}\\
+\bnfprod{catch}{\bnfts{catch} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{arguments} \bnfsp \bnfpn{block}}\\
+\bnfprod{word}{\bnfpn{literal} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{name} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{method call}}\\
+\bnfprod{block}{\bnftd{optional whitespace} \bnfsp \bnfts{:} \bnfsp \bnfpn{eol} \bnfsp \bnftd{indent} \bnfsp \bnfpn{contents} \bnfsp \bnftd{dedent} \bnfsp \bnfpn{eol}}\\
+\bnfprod{name}{\bnftd{anything except ", \#, ! or whitespace, or : or @ at the front}}\\
+\bnfprod{funtion name}{\bnfts{labda} \bnfor \bnfts{func} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfts{local} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfpn{name}}\\
+\bnfprod{optional arguments}{\bnfes \bnfor \bnftd{whitespace} \bnfsp \bnfpn{arguments}}\\
+\bnfprod{arguments}{\bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{arguments}}\\
+\bnfprod{literal}{\bnftd{literal number} \bnfor \bnfts{:} \bnfsp \bnfpn{name} \bnfor \bnfpn{string} \bnfor \bnfpn{fraction}} \\
+\bnfprod{optional get}{\bnfes \bnfor \bnfts{@}}\\
+\bnfprod{method call}{\bnfpn{optional name} \bnfsp \bnfts{!} \bnfsp \bnfpn{message}}\\
+\bnfprod{string}{\bnfts{"} \bnfsp \bnftd{anything except " or newline} \bnfsp \bnfts{"}}\\
+\bnfprod{fraction}{\bnftd{integer} \bnfsp \bnfts{/} \bnfsp \bnftd{positive integer}}\\
+\bnfprod{optional name}{\bnfes \bnfor \bnfpn{name}}\\
+\bnfprod{message}{\bnfes \bnfor \bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnfts{!} \bnfsp \bnfpn{message}}\\
+\end{bnf*}
