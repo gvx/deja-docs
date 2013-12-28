@@ -22,11 +22,11 @@ The rest of this page will be used to show the various escape characters you can
 
 \newpage
 \begin{bnf*}
-\bnfprod{program}{\bnfes \bnfor \bnfpn{contents}}\\
-\bnfprod{contents}{\bnfpn{element} \bnfor \bnfpn{element} \bnfsp \bnfpn{contents}}\\
+\bnfprod{program}{\bnfes \bnfor \bnfpn{optional contents}}\\
+\bnfprod{optional contents}{\bnfpn{element} \bnfor \bnfpn{element} \bnfsp \bnfpn{optional contents}}\\
 \bnfprod{element}{\bnfpn{statement} \bnfor \bnfpn{eol}}\\
 \bnfprod{statement}{\bnfpn{simple line} \bnfor \bnfpn{simple statement} \bnfor \bnfpn{if suite} \bnfor \bnfpn{try-catch suite}}\\
-\bnfprod{eol}{\bnftd{whitespace} \bnfsp \bnfpn{optional comment} \bnfsp \bnftd{newline}}\\
+\bnfprod{eol}{\bnftd{optional whitespace} \bnfsp \bnfpn{optional comment} \bnfsp \bnftd{newline}}\\
 \bnfprod{simple line}{\bnfpn{words} \bnfsp \bnfpn{eol}}\\
 \bnfprod{simple statement}{\bnfpn{while} \bnfor \bnfpn{for} \bnfor \bnfpn{function definition} \bnfor \bnfpn{repeat}}\\
 \bnfprod{if suite}{\bnfts{if} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block} \bnfsp \bnfpn{elseifs} \bnfsp \bnfpn{else}}\\
@@ -44,6 +44,7 @@ The rest of this page will be used to show the various escape characters you can
 \bnfprod{catch}{\bnfts{catch} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{arguments} \bnfsp \bnfpn{block}}\\
 \bnfprod{word}{\bnfpn{literal} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{name} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{method call}}\\
 \bnfprod{block}{\bnftd{optional whitespace} \bnfsp \bnfts{:} \bnfsp \bnfpn{eol} \bnfsp \bnftd{indent} \bnfsp \bnfpn{contents} \bnfsp \bnftd{dedent} \bnfsp \bnfpn{eol}}\\
+\bnfprod{contents}{\bnfpn{optional contents} \bnfsp \bnfpn{statement} \bnfsp \bnfpn{optional contents}}\\
 \bnfprod{name}{\bnftd{anything except ", \#, ! or whitespace, or : or @ at the front}}\\
 \bnfprod{funtion name}{\bnfts{labda} \bnfor \bnfts{func} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfts{local} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfpn{name}}\\
 \bnfprod{optional arguments}{\bnfes \bnfor \bnftd{whitespace} \bnfsp \bnfpn{arguments}}\\
