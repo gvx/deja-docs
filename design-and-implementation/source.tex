@@ -62,16 +62,16 @@ The rest of this page will be used to show the various escape characters you can
 \section{Idents}
 To understand \dv, one must first understand idents. The word
 ``ident'' is short for ``identifier''. Idents are symbolic values,
-and their most common use is as variable names. Variables in \dv
+and their most common use is as variable names. Variables in \dv{}
 consist of three objects: the name (an ident), the context (a scope),
 and the value (any type of value).
 
-If you see a word in \dv source code that looks like an identifier or
+If you see a word in \dv{} source code that looks like an identifier or
 keyword in other languages, it is usually a ``proper word''. Basically, it is made into an
 ident, then it looks up the value that is coupled to that ident, and
 then calls the value as a function.
 
 \section{Syntactic suger}
-\dv has a lot of syntactic sugar to make common idioms easier to write
+\dv{} has a lot of syntactic sugar to make common idioms easier to write
 and read. A simple example for that is the get-syntax: \verb!@something!
 is equivalent to \verb!get :something!
