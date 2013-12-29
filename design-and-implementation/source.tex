@@ -59,6 +59,33 @@ The rest of this page will be used to show the various escape characters you can
 \end{bnf*}
 \newpage
 
+\section{Semantics}
+\subsection{Signatures}
+\dv{}, being a stack-based language, has as a central feature a stack of
+values. Values can be passed around, but can also be ``called'', in which case
+they (among other things) manipulate the stack. The \defini{signature} of a
+value is an indication of that stack manipulation. Most types have a signature
+of \sig{0}{1}, that is: they take no values off the stack, and push a single
+value on it (namely, themselves). The exceptions are called ``functions''.
+Some examples from the standard library\footnote{See chapter \ref{chap:stdlib} starting from page \pageref{chap:stdlib} for an explanation of
+each of those functions.}: \verb!drop! is \sig{1}{0}, \verb!dup!
+is \sig{1}{2} and \verb!swap! is \sig{2}{2}. Some function have a variable
+signature, that is: the number of arguments the function takes or the number of
+values it returns can change per call. One such an example is \verb![! with
+\sig{$n$}{1}, another is \verb!rep! with \sig{2}{$n$}.
+
+Determining the signature of an arbitrary function is an undecidable\footnote{The
+proof is left as an exercise for the reader} problem. This means that we
+cannot, in general, know the signature without running it. And \emph{that}
+means signatures are only used as hints for programmers.\footnote{I wrote a
+variation on \dv{} once, where signatures were statically determined from
+function bodies and enforced during execution. It was horrible to use.}
+
+\subsection{Use--mention distinction}
+blah blah two use--mention distinctions (get vs call and ident vs call)
+
+\subsection{(different statements)}
+
 \section{Idents}
 To understand \dv, one must first understand idents. The word
 ``ident'' is short for ``identifier''. Idents are symbolic values,

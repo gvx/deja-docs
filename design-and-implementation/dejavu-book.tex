@@ -2,10 +2,24 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{backnaur}
+\usepackage{makeidx}
 \title{Design and Implementation of the Déjà Vu Programming Language}
 \author{Robin Wellner}
 \input{dejavu-book-style}
+\makeindex
 \newcommand\dv{Déjà Vu}
+\usepackage{tikz}
+\definecolor{specialblue}{rgb}{0.6,0.6,1}
+\newcommand{\udensdot}[1]{%
+	    \tikz[baseline=(todotted.base)]{
+		\node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+		\draw[dotted,specialblue,line width = 0.5mm] (todotted.south west) -- (todotted.south east);
+	}%
+}%
+
+\newcommand\defini[1]{\index{#1}\udensdot{#1}}
+%\newcommand\sig[2]{$(-#1\!+\!#2)$}
+\newcommand\sig[2]{\raisebox{0.2ex}{\scriptsize(\!$-$#1+#2)}}
 \begin{document}
 
 \include{titlepage}
@@ -31,5 +45,7 @@
 \include{standard-library}
 
 \backmatter
+
+\printindex
 
 \end{document}
