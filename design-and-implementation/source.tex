@@ -22,33 +22,34 @@ The rest of this page will be used to show the various escape characters you can
 
 \newpage
 \begin{bnf*}
-\bnfprod{program}{\bnfes \bnfor \bnfpn{optional contents}}\\
-\bnfprod{optional contents}{\bnfpn{element} \bnfor \bnfpn{element} \bnfsp \bnfpn{optional contents}}\\
+\bnfprod{program}{\bnfpn{optional contents}}\\
+\bnfprod{optional contents}{\bnfes \bnfor \bnfpn{element} \bnfsp \bnfpn{optional contents}}\\
 \bnfprod{element}{\bnfpn{statement} \bnfor \bnfpn{eol}}\\
 \bnfprod{statement}{\bnfpn{simple line} \bnfor \bnfpn{simple statement} \bnfor \bnfpn{if suite} \bnfor \bnfpn{try-catch suite}}\\
-\bnfprod{eol}{\bnftd{optional whitespace} \bnfsp \bnfpn{optional comment} \bnfsp \bnftd{newline}}\\
+\bnfprod{eol}{\bnftd{optional white space} \bnfsp \bnfpn{optional comment} \bnfsp \bnftd{newline}}\\
 \bnfprod{simple line}{\bnfpn{words} \bnfsp \bnfpn{eol}}\\
 \bnfprod{simple statement}{\bnfpn{while} \bnfor \bnfpn{for} \bnfor \bnfpn{function definition} \bnfor \bnfpn{repeat}}\\
-\bnfprod{if suite}{\bnfts{if} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block} \bnfsp \bnfpn{elseifs} \bnfsp \bnfpn{else}}\\
+\bnfprod{if suite}{\bnfts{if} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block} \bnfsp \bnfpn{elseifs} \bnfsp \bnfpn{else}}\\
 \bnfprod{try-catch suite}{\bnfts{try} \bnfsp \bnfpn{block} \bnfsp \bnfpn{catches}}\\
 \bnfprod{optional comment}{\bnfes \bnfor \bnfts{\#} \bnfsp \bnftd{anything except newline}}\\
-\bnfprod{words}{\bnfpn{word} \bnfor \bnfpn{word} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words}}\\
-\bnfprod{while}{\bnfts{while} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
-\bnfprod{for}{\bnfts{for} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{optional words}{\bnfes \bnfor \bnftd{white space} \bnfsp \bnfpn{words}}\\
+\bnfprod{words}{\bnfpn{word} \bnfor \bnfpn{word} \bnfsp \bnftd{white space} \bnfsp \bnfpn{words}}\\
+\bnfprod{while}{\bnfts{while} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
+\bnfprod{for}{\bnfts{for} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
 \bnfprod{function definition}{\bnfpn{function name} \bnfsp \bnfpn{optional arguments} \bnfsp \bnfpn{block}}\\
-\bnfprod{repeat}{\bnfts{repeat} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{repeat}{\bnfts{repeat} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
 \bnfprod{elseifs}{\bnfes \bnfor \bnfpn{elseif} \bnfsp \bnfpn{elseifs}}\\
-\bnfprod{elseif}{\bnfts{elseif} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{words} \bnfsp \bnfpn{block}}\\
+\bnfprod{elseif}{\bnfts{elseif} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
 \bnfprod{else}{\bnfes \bnfor \bnfts{else} \bnfsp \bnfpn{block}}\\
 \bnfprod{catches}{\bnfes \bnfor \bnfpn{catch} \bnfsp \bnfpn{catches}}\\
-\bnfprod{catch}{\bnfts{catch} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{arguments} \bnfsp \bnfpn{block}}\\
+\bnfprod{catch}{\bnfts{catch} \bnfsp \bnftd{white space} \bnfsp \bnfpn{arguments} \bnfsp \bnfpn{block}}\\
 \bnfprod{word}{\bnfpn{literal} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{name} \bnfor \bnfpn{optional get} \bnfsp \bnfpn{method call}}\\
-\bnfprod{block}{\bnftd{optional whitespace} \bnfsp \bnfts{:} \bnfsp \bnfpn{eol} \bnfsp \bnftd{indent} \bnfsp \bnfpn{contents} \bnfsp \bnftd{dedent} \bnfsp \bnfpn{eol}}\\
+\bnfprod{block}{\bnftd{optional white space} \bnfsp \bnfts{:} \bnfsp \bnfpn{eol} \bnfsp \bnftd{indent} \bnfsp \bnfpn{contents} \bnfsp \bnftd{dedent}}\\
 \bnfprod{contents}{\bnfpn{optional contents} \bnfsp \bnfpn{statement} \bnfsp \bnfpn{optional contents}}\\
-\bnfprod{name}{\bnftd{anything except ", \#, ! or whitespace, or : or @ at the front}}\\
-\bnfprod{funtion name}{\bnfts{labda} \bnfor \bnfts{func} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfts{local} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{name} \bnfor \bnfpn{name}}\\
-\bnfprod{optional arguments}{\bnfes \bnfor \bnftd{whitespace} \bnfsp \bnfpn{arguments}}\\
-\bnfprod{arguments}{\bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnftd{whitespace} \bnfsp \bnfpn{arguments}}\\
+\bnfprod{name}{\bnftd{anything except ", \#, ! or white space, or : or @ at the front}}\\
+\bnfprod{funtion name}{\bnfts{labda} \bnfor \bnfts{func} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfor \bnfts{local} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfor \bnfpn{name}}\\
+\bnfprod{optional arguments}{\bnfes \bnfor \bnftd{white space} \bnfsp \bnfpn{arguments}}\\
+\bnfprod{arguments}{\bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnftd{white space} \bnfsp \bnfpn{arguments}}\\
 \bnfprod{literal}{\bnftd{literal number} \bnfor \bnfts{:} \bnfsp \bnfpn{name} \bnfor \bnfpn{string} \bnfor \bnfpn{fraction}} \\
 \bnfprod{optional get}{\bnfes \bnfor \bnfts{@}}\\
 \bnfprod{method call}{\bnfpn{optional name} \bnfsp \bnfts{!} \bnfsp \bnfpn{message}}\\
@@ -84,8 +85,70 @@ function bodies and enforced during execution. It was horrible to use.}
 \subsection{Use--mention distinction}
 blah blah two use--mention distinctions (get vs call and ident vs call)
 
-\subsection{(different statements)}
+\subsection{Statements and other line oriented subjects}
+\subsubsection{Comments}
 
+A single pound sign (\verb!#!) appearing anywhere except inside a string
+literal starts a \defini{comment}. The following text will assume all the
+comments have been stripped beforehand.
+
+\subsubsection{Indentation}
+
+Like in Python, in \dv{} \defini{indentation} is used to group code into
+blocks. Lines that do not contain any code are ignored for indentation.
+Lines that do contain code are called \defini{non-empty lines}.
+
+The first non-empty line must have no leading white space. Only the first
+non-empty line after a \defini{statement line} (lines ending in a colon)
+can (and must) have more leading white space than the preceding non-empty
+line. The leading white space of that statement line must be a prefix of
+the leading white space of the line with increased indentation.
+
+A non-empty line following a simple line (see below) can
+have the same leading white space as preceding non-empty line, or the same as
+a non-empty statement line that opened a block that (directly or indirectly)
+contains the preceding non-empty line.
+
+\subsubsection{Simple line}
+
+Any non-empty line that is not a statement line is a \defini{simple line}.
+A simple line is a sequence of \defini{words}, separated by white space.
+
+Execution order is right to left. This is different from Forth and other
+stack-based languages, but it is a better match for mathematical
+notation. For example, $f(x)$ would be \verb!f x! in \dv{}.
+
+Some statements have a part of their statement line where you can put arbitrary
+words, which works almost the same as a simple line. The exception is that they,
+unlike simple lines, can be empty.
+
+\subsubsection{While}
+
+A while-loop executes its body a number of times, much like the repeat-loop and
+the for-loop. The part of its statement after the first word (\verb!while!) and
+before the colon is a simple line that is executed before each iteration (a
+\defini{conditional line}).
+
+A single value is popped of the stack after running the conditional line, and
+if it is truthy (see ...?) the body is run, and execution goes back to the
+start. If that value was falsy, the loop is ended.
+
+The conditional line is generally \sig{0}{1}, and less often \sig{$n$}{($n$+1)}
+but that is not required. It can even be empty, as long as the code before and inside the loop makes sure there is at least one value on the stack before the loop
+condition is checked.
+
+\subsubsection{Repeat}
+
+A repeat-loop executes its body a fixed number of times. The simple line
+between its first word (\verb!repeat!) and the colon is executed for the loop
+and is expected to push a number to the stack. That number is the number
+of times the body is executed.
+
+\subsubsection{For}
+\subsubsection{If}
+\subsubsection{Try--catch}
+\subsubsection{Function definition}
+\subsection{Words}
 \section{Idents}
 To understand \dv, one must first understand idents. The word
 ``ident'' is short for ``identifier''. Idents are symbolic values,
@@ -102,3 +165,10 @@ then calls the value as a function.
 \dv{} has a lot of syntactic sugar to make common idioms easier to write
 and read. A simple example for that is the get-syntax: \verb!@something!
 is equivalent to \verb!get :something!
+
+\section{Truthyness}
+
+In \dv{}, all objects can be used in a boolean context. The only things that
+count as falsy are: numbers equal to zero (this includes \verb!false!), empty
+lists and dictionaries, and zero-length strings and blobs. In particular, idents
+and functions are always truthy.

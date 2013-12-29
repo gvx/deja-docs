@@ -13,7 +13,9 @@
 \newcommand{\udensdot}[1]{%
 	    \tikz[baseline=(todotted.base)]{
 		\node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
-		\draw[dotted,specialblue,line width = 0.5mm] (todotted.south west) -- (todotted.south east);
+		\path (todotted.base west) ++(1pt, -2pt) coordinate (Start);
+		\path (todotted.base east) ++(-1pt, -2pt) coordinate (End);
+		\draw[dotted,specialblue,line width = 0.5mm] (Start) -- (End);
 	}%
 }%
 
@@ -30,9 +32,9 @@
 
 \tableofcontents
 
-\mainmatter
-
 \include{introduction}
+
+\mainmatter
 
 \include{source}
 
