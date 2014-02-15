@@ -57,10 +57,14 @@ None & N/A & Some opcodes do not take arguments. These three bytes will be ignor
 
 \subsection{PUSH\textunderscore{}LITERAL}
 \label{sec:push-literal}
+\sig{0}{1}
+
 This opcode pushes a literal value to the stack.
 
 \subsection{PUSH\textunderscore{}INTEGER}
 \label{sec:push-integer}
+\sig{0}{1}
+
 This opcode pushes a literal integer to the stack. It performs the same
 basic function as PUSH\textunderscore{}LITERAL, except that is narrower
 in scope (it only handles integers representable in 24 bits) and avoids
@@ -71,11 +75,15 @@ PUSH\textunderscore{}LITERAL instructions instead.
 
 \subsection{PUSH\textunderscore{}WORD}
 \label{sec:push-word}
+\sig{?}{?}
+
 This opcode first performs the same functionality as GET and then, if
 the value retrieved is a function, that function is called.
 
 \subsection{SET}
 \label{sec:set}
+\sig{1}{0}
+
 This opcode retrieves an ident from the literals table and pops a
 value from the stack. It then goes upward from the current scope,
 stopping if it finds a definition of the ident in question. It then
@@ -85,18 +93,24 @@ global scope is made.
 
 \subsection{SET\textunderscore{}LOCAL}
 \label{sec:set-local}
+\sig{1}{0}
+
 This opcode retrieves an ident from the literals table and pops a
 value from the stack. It then assigns the value to the ident in the
 current scope.
 
 \subsection{SET\textunderscore{}GLOBAL}
 \label{sec:set-global}
+\sig{1}{0}
+
 This opcode retrieves an ident from the literals table and pops a
 value from the stack. It then assigns the value to the ident in the
 global scope.
 
 \subsection{GET}
 \label{sec:get}
+\sig{0}{1}
+
 This opcode retrieves an ident from the literals table. It then goes
 upward from the current scope, stopping if it finds a definition of the
 ident in question. It then pushes the value from the ident in that scope
@@ -105,6 +119,8 @@ definition for the ident, a \verb!name-error! exception is thrown.
 
 \subsection{GET\textunderscore{}GLOBAL}
 \label{sec:get-global}
+\sig{0}{1}
+
 This opcode retrieves an ident from the literals table. It then looks up
 the definition of that ident in the global scope and pushes the value to
 the stack. If the global scope has no definition for the ident, a
@@ -112,11 +128,15 @@ the stack. If the global scope has no definition for the ident, a
 
 \subsection{JMP}
 \label{sec:jmp}
+\sig{0}{0}
+
 An unconditional jump. The argument is the relative position where the
 control will jump to before executing the next instruction.
 
 \subsection{JMPZ}
 \label{sec:jmpz}
+\sig{1}{0}
+
 A conditional jump. A value is popped from the stack. If the value is
 a false one (see the language reference for an overview of truth values
 for the various types), the jump is made. The argument is the relative
@@ -125,17 +145,23 @@ instruction.
 
 \subsection{RETURN}
 \label{sec:return}
+\sig{0}{0}
+
 Returns from the current function. Closes all scopes belonging to the
 current function call, including error handlers.
 
 \subsection{RECURSE}
 \label{sec:recurse}
+\sig{0}{0}
+
 Similar to RETURN, except that it also ``restarts'' the function
 (keeping the original function scope), implementing a form of tail call
 optimization.
 
 \subsection{JMPEQ}
 \label{sec:jmpeq}
+\sig{2}{0}
+
 An conditional jump. Two values are popped from the stack. If the values
 are equal (see the language reference for an overview of equality for
 the various types), the jump is made. The argument is the relative
@@ -144,6 +170,8 @@ instruction.
 
 \subsection{JMPNE}
 \label{sec:jmpne}
+\sig{2}{0}
+
 An conditional jump. Two values are popped from the stack. If the values
 are \emph{not} equal (see the language reference for an overview of
 equality for the various types), the jump is made. The argument is the
@@ -152,6 +180,8 @@ next instruction.
 
 \subsection{LABDA}
 \label{sec:labda}
+\sig{0}{1}
+
 Creates an anonymous function and pushes it to the stack. The current
 scope will be the parent scope of that function. The function will begin
 execution in the next instruction when called. After pushing the
@@ -160,19 +190,27 @@ the instruction been JMP.
 
 \subsection{ENTER\textunderscore{}SCOPE}
 \label{sec:enterscope}
+\sig{0}{0}
+
 Creates a new scope, with the current scope as parent. It then pushes
 that scope on the scope stack.
 
 \subsection{LEAVE\textunderscore{}SCOPE}
 \label{sec:leavescope}
+\sig{0}{0}
+
 Pops the top scope from the scope stack.
 
 \subsection{NEW\textunderscore{}LIST}
 \label{sec:newlist}
+\sig{0}{1}
+
 Creates a new list and pushes it to the stack.
 
 \subsection{POP\textunderscore{}FROM}
 \label{sec:popfrom}
+\sig{1}{1}
+
 Pops a list from the stack, and removes the last value from it. Finally
 pushes that value to the stack. If the top of the stack is not a list,
 it raises a \verb!type-error!. If the list is empty, a
@@ -180,51 +218,71 @@ it raises a \verb!type-error!. If the list is empty, a
 
 \subsection{PUSH\textunderscore{}TO}
 \label{sec:pushto}
+\sig{2}{0}
+
 Pops a list from the stack. If it not a list, a \verb!type-error! is
 raised. Otherswise, it pops another value from the stack. That value
 is then appended to the list. Nothing is pushed to the stack.
 
 \subsection{PUSH\textunderscore{}THROUGH}
 \label{sec:pushthrough}
+\sig{2}{1}
+
 Pops a list from the stack. If it not a list, a \verb!type-error! is
 raised. Otherswise, it pops another value from the stack. That value
 is then appended to the list. The list is pushed back to the stack.
 
 \subsection{DROP}
 \label{sec:drop}
+\sig{1}{0}
+
 Drops the top most value from the stack.
 
 \subsection{DUP}
 \label{sec:dup}
+\sig{1}{2}
+
 Duplicates the top most value on the stack.
 
 \subsection{SWAP}
 \label{sec:swap}
+\sig{2}{2}
+
 Swaps the two top most values on the stack.
 
 \subsection{ROT}
 \label{sec:rot}
+\sig{3}{3}
+
 Rotates the three top most values on the stack, such that after the
 operation the previous top most value is the second value, the previous
 second value is the third, and the previous third value is the top most
 
 \subsection{OVER}
 \label{sec:over}
+\sig{2}{3}
+
 Duplicates the second value on the stack, and pushes it to the top of
 the stack.
 
 \subsection{LINE\textunderscore{}NUMBER}
 \label{sec:linenumber}
+\sig{0}{0}
+
 For tracebacks. Changes the line number associated to the current scope
 to the argument.
 
 \subsection{SOURCE\textunderscore{}FILE}
 \label{sec:sourcefile}
+\sig{0}{0}
+
 For tracebacks. The argument should point to a string representing the
 path to the source file for the current byte code file.
 
 \subsection{ENTER\textunderscore{}ERRHAND}
 \label{sec:entererrhand}
+\sig{0}{0}
+
 The same as ENTER\textunderscore{}SCOPE, except that the new scope gets
 a flag that means an error occuring while this scope is in session (and
 not shadowed by another error handler) will be handled by continuing
@@ -233,26 +291,42 @@ behaves like JMP.
 
 \subsection{LEAVE\textunderscore{}ERRHAND}
 \label{sec:leaveerrhand}
+\sig{0}{0}
+
 Exactly the same as LEAVE\textunderscore{}SCOPE.
 
 \subsection{RAISE}
 \label{sec:raise}
+\sig{1}{0}
+
 
 \subsection{RERAISE}
 \label{sec:reraise}
+\sig{1}{0}
+
 
 \subsection{NEW\textunderscore{}DICT}
 \label{sec:newdict}
+\sig{0}{1}
+
 
 \subsection{HAS\textunderscore{}DICT}
 \label{sec:hasdict}
+\sig{2}{1}
+
 
 \subsection{GET\textunderscore{}DICT}
 \label{sec:getdict}
+\sig{2}{1}
+
 
 \subsection{SET\textunderscore{}DICT}
 \label{sec:setdict}
+\sig{3}{0}
+
 
 \subsection{CALL}
 \label{sec:call}
+\sig{(1+?)}{?}
+
 

@@ -9,6 +9,8 @@ On the next page is the complete grammar of the Déjà Vu language (because inde
 
 The rest of this page will be used to show the various escape characters you can use in string literals:
 
+\bigskip
+
 \begin{tabular}{ l l }
 \textbf{Sequence} & \textbf{Character inserted}\\
 \hline
@@ -36,7 +38,7 @@ The rest of this page will be used to show the various escape characters you can
 \bnfprod{words}{\bnfpn{word} \bnfor \bnfpn{word} \bnfsp \bnftd{white space} \bnfsp \bnfpn{words}}\\
 \bnfprod{while}{\bnfts{while} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
 \bnfprod{for}{\bnfts{for} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
-\bnfprod{function definition}{\bnfpn{function name} \bnfsp \bnfpn{optional arguments} \bnfsp \bnfpn{block}}\\
+\bnfprod{function definition}{\bnfpn{function declaration} \bnfsp \bnfpn{optional arguments} \bnfsp \bnfpn{block}}\\
 \bnfprod{repeat}{\bnfts{repeat} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
 \bnfprod{elseifs}{\bnfes \bnfor \bnfpn{elseif} \bnfsp \bnfpn{elseifs}}\\
 \bnfprod{elseif}{\bnfts{elseif} \bnfsp \bnfpn{optional words} \bnfsp \bnfpn{block}}\\
@@ -47,7 +49,9 @@ The rest of this page will be used to show the various escape characters you can
 \bnfprod{block}{\bnftd{optional white space} \bnfsp \bnfts{:} \bnfsp \bnfpn{eol} \bnfsp \bnftd{indent} \bnfsp \bnfpn{contents} \bnfsp \bnftd{dedent}}\\
 \bnfprod{contents}{\bnfpn{optional contents} \bnfsp \bnfpn{statement} \bnfsp \bnfpn{optional contents}}\\
 \bnfprod{name}{\bnftd{anything except ", \#, ! or white space, or : or @ at the front}}\\
-\bnfprod{funtion name}{\bnfts{labda} \bnfor \bnfts{func} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfor \bnfts{local} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfor \bnfpn{name}}\\
+\bnfprod{function declaration}{\bnfts{labda} \bnfor \bnfts{local} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name} \bnfor \bnfpn{function name}}\\
+\bnfprod{function name}{\bnfts{func} \bnfsp \bnftd{white space} \bnfsp \bnfpn{name or method} \bnfor \bnfpn {name or method}}\\
+\bnfprod{name or method}{\bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnfts{!} \bnfsp \bnfpn{name}}\\
 \bnfprod{optional arguments}{\bnfes \bnfor \bnftd{white space} \bnfsp \bnfpn{arguments}}\\
 \bnfprod{arguments}{\bnfpn{name} \bnfor \bnfpn{name} \bnfsp \bnftd{white space} \bnfsp \bnfpn{arguments}}\\
 \bnfprod{literal}{\bnftd{literal number} \bnfor \bnfts{:} \bnfsp \bnfpn{name} \bnfor \bnfpn{string} \bnfor \bnfpn{fraction}} \\
@@ -146,7 +150,26 @@ of times the body is executed.
 
 \subsubsection{For}
 \subsubsection{If}
+
+If-suites consist of an if-clause, followed by zero or more elseif-clauses, and then an optional else-clause. Every one of those has a conditional line, except for the else.
+
 \subsubsection{Try--catch}
+
+Each catch-clause lists the errors it handles.
+
+Currently, there are the following types of error you can handle:
+
+\begin{itemize}
+	\item \verb!name-error! Tried to get or push a name which has no binding in the current context.
+	\item \verb!value-error! An argument has an invalid value for the operation attempted.
+	\item \verb!type-error! An argument has the wrong type.
+	\item \verb!stack-empty! There are not enough values on the stack.
+	\item \verb!illegal-file! A source file has a syntax error or a byte-code file is malformed.
+	\item \verb!unicode-error! Attempted to make a string from a source that is not valid UTF-8.
+	\item \verb!interrupt! An interrupt was sent to the virtual machine (often by pressing Ctrl+C in the terminal).
+	\item \verb!error! A generic error type. Avoid if possible.
+\end{itemize}
+
 \subsubsection{Function definition}
 \subsection{Words}
 \section{Idents}
@@ -172,3 +195,14 @@ In \dv{}, all objects can be used in a boolean context. The only things that
 count as falsy are: numbers equal to zero (this includes \verb!false!), empty
 lists and dictionaries, and zero-length strings and blobs. In particular, idents
 and functions are always truthy.
+
+\section{Equality}
+
+\dv{} has a single concept of \defini{equality}, that is used with both
+\verb!=! and to distinguish dictionary keys from each other. A value is always
+equal to itself (that is \verb!= dup! should never return \verb!false!). Two values of different types are never equal to each other.
+
+For immutable types (strings, numbers, fractions and pairs), different values
+that represent the same data are equal as well.
+
+Idents are immutable as well, but since they are globally unique, there are never two separate instances of idents that would compare equal.
